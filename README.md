@@ -25,7 +25,7 @@ The custom views , models and urls are given here , just create a new app inside
 pyhton3 manage.py startapp helperbot
 ```
 
-<br>and replace the code inside the views.py , models.py , urls.py from this repo
+<br>and use the views and urls to render your templates properly -  the chatbot render from the templates
 <br>also the templates , just paste them inside the directory of your app 
 
 **Did all of it , did runserver and nothing worked?**
