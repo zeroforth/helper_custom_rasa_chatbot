@@ -1,0 +1,55 @@
+intents:
+- greet
+- affirm
+- deny
+- get_verse
+- goodbye
+- mood_great
+- mood_unhappy
+- nlu_fallback
+- provide_book_number
+- provide_chapter_number
+- provide_verse_number
+
+entities:
+- BookNumber
+- Chapter
+- Verse
+
+actions:
+- action_get_bible_verse
+- action_ask_for_verse
+- action_store_book_number
+- action_store_chapter_number
+- action_store_verse_number
+
+slots:
+  BookNumber:
+    type: text
+    mappings: []
+  Chapter:
+    type: text
+    mappings: []
+  Verse:
+    type: text
+    mappings: []
+
+responses:
+  utter_greet:
+    - text: "Welcome - Feel free to ask me questions ! I am also your quick repository for Bible Study(Start by asking the Book Name and Book Number)"
+  utter_default:
+    - text: "I'm sorry, I didn't understand that. Can you please rephrase?"
+  utter_ask_BookNumber:
+    - text: "Please provide the book number."
+  utter_ask_Chapter:
+    - text: "Please provide the chapter number."
+  utter_ask_Verse:
+    - text: "Please provide the verse number."
+  utter_goodbye:
+    - text: "Goodbye!"
+  utter_verse_not_found:
+    - text: "Sorry, the verse was not found."
+    
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
