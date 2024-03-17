@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .chatroom {
+  width: 100%;
+  height: 600px;
+  color: #343d4e;
+  max-height: 90vh;
+  background-color: rgba(200, 200, 200, 0.9);
+  border-radius: 3px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  letter-spacing: normal;
+  overflow: hidden;
+  box-sizing: border-box;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.8);
+}
+.chatroom * {
+  box-sizing: border-box;
+}
+.chatroom.closed {
+  height: 40px;
+}
+.chatroom h3 {
+  background-color: #343d4e;
+  color: #fff;
+  margin: 0;
+  height: 40px;
+  font-weight: 600;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.chatroom .chats {
+  box-sizing: border-box;
+  padding: 20px;
+  margin: 0;
+  height: calc(100% - 80px);
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+.chatroom .chats .chat {
+  background: rgba(255, 255, 255, 0.8);
+  position: relative;
+  padding: 5px 13px;
+  font-size: 14px;
+  border-radius: 10px;
+  list-style: none;
+  float: left;
+  clear: both;
+  margin: 10px 0 0 0;
+  max-width: 90%;
+}
+.chatroom .chats .chat img {
+  max-width: 100%;
+  vertical-align: middle;
+}
+.chatroom .chats .chat.left {
+  border-bottom-left-radius: 0;
+}
+.chatroom .chats .chat.right {
+  float: right;
+  clear: both;
+  border-bottom-right-radius: 0;
+}
+.chatroom .chats .chat .text {
+  word-wrap: break-word;
+}
+.chatroom .chats .chat.chat-img {
+  padding: 5px;
+}
+.chatroom .chats .chat a {
+  text-decoration: none;
+  color: #3498db;
+}
+.chatroom .chats .chat ul, .chatroom .chats .chat ol {
+  margin: 0;
+  padding-left: 1.5em;
+}
+.chatroom .chats .chat ul li, .chatroom .chats .chat ol li {
+  padding-left: 0;
+}
+.chatroom .chats .chat.waiting {
+  margin: 10px 0;
+  background: transparent;
+  padding: 0;
+}
+@keyframes fade {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.3;
+  }
+}
+.chatroom .chats .chat.waiting span {
+  font-size: 1.5em;
+  animation-name: fade;
+  animation-duration: 0.8s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+}
+.chatroom .chats .chat.waiting span:nth-child(1) {
+  animation-delay: 0s;
+}
+.chatroom .chats .chat.waiting span:nth-child(2) {
+  animation-delay: 0.4s;
+}
+.chatroom .chats .chat.waiting span:nth-child(3) {
+  animation-delay: 0.8s;
+}
+.chatroom .chats .time {
+  list-style: none;
+  clear: both;
+  height: 10px;
+  font-size: 10px;
+  color: #414141;
+  margin: 5px 0 20px 0;
+}
+.chatroom .chats .time.left {
+  float: left;
+}
+.chatroom .chats .time.right {
+  float: right;
+}
+.chatroom .chats .chat-buttons {
+  position: relative;
+  padding: 0;
+  font-size: 14px;
+  list-style: none;
+  clear: both;
+  margin: 10px 0;
+  text-align: center;
+}
+.chatroom .chats .chat-buttons .chat-button {
+  display: inline-block;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  margin: 3px;
+  background-color: #343d4e;
+  color: white;
+  border: 2px solid white;
+  padding: 5px 10px;
+  letter-spacing: normal;
+  border-radius: 5px;
+}
+.chatroom .chats .chat-buttons .chat-button:hover, .chatroom .chats .chat-buttons .chat-button.chat-button-selected {
+  background-color: rgba(52, 61, 78, 0.6);
+  color: white;
+}
+.chatroom .chats .chat-buttons .chat-button.chat-button-disabled {
+  color: grey;
+  border: 2px solid grey;
+}
+.chatroom .input {
+  height: 40px;
+  width: 100%;
+  margin: 0;
+  padding: 0 5px;
+  background-color: #343d4e;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.chatroom .input input[type="text"] {
+  background-color: rgba(255, 255, 255, 0.8);
+  outline: 0;
+  border: 1px solid white;
+  border-right: none;
+  color: #343d4e;
+  padding: 0 5px;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  height: 30px;
+  flex: 4;
+  box-sizing: border-box;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+.chatroom .input input[type="text"]:focus {
+  box-shadow: none;
+  background-color: white;
+}
+.chatroom .input input[type="submit"] {
+  display: inline-block;
+  background: #343d4e;
+  border: 1px solid white;
+  color: white;
+  height: 30px;
+  min-width: 70px;
+  line-height: 1;
+  text-align: center;
+  padding: 0;
+  font-size: 12px;
+  flex: 1;
+  box-shadow: none;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  outline: none;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.chatroom .input input[type="submit"]:hover {
+  background: rgba(255, 255, 255, 0.8);
+}
+.chatroom #speech-input {
+  height: 30px;
+  width: 30px;
+  margin-left: 5px;
+  background: #343d4e;
+  border: 1px solid white;
+  color: white;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.chatroom #speech-input:hover {
+  background: rgba(255, 255, 255, 0.8);
+}
+.chatroom .vertical-center {
+  vertical-align: middle;
+}
+    </style>
+</head>
+<body>
+    <div class="chat-container"></div>
+    
+    <script>
+        // Define Chatroom class
+        class Chatroom {
+            constructor(props) {
+                this.messages = props.messages || [];
+                this.title = props.title || "Chatroom";
+                this.isOpen = props.isOpen || false;
+                this.waitingForBotResponse = props.waitingForBotResponse || false;
+                this.speechRecognition = props.speechRecognition || null;
+                this.voiceLang = props.voiceLang || null;
+                this.inputValue = "";
+                this.lastRendered = 0;
+                this.chatsRef = null;
+                this.inputRef = null;
+                this.onSendMessage = props.onSendMessage;
+                this.onButtonClick = props.onButtonClick;
+                this.onToggleChat = props.onToggleChat;
+            }
+
+            componentDidMount() {
+                this.scrollToBot();
+            }
+
+            componentDidUpdate(prevProps) {
+                if (prevProps.messages !== this.messages) {
+                    this.scrollToBot();
+                }
+                if (!prevProps.isOpen && this.isOpen) {
+                    this.focusInput();
+                }
+                this.lastRendered = Date.now();
+            }
+
+            shouldComponentUpdate(nextProps, nextState) {
+                return (
+                    nextProps !== this.props ||
+                    nextState !== this.state ||
+                    Date.now() > this.lastRendered + REDRAW_INTERVAL
+                );
+            }
+
+            scrollToBot() {
+                this.chatsRef.scrollTop = this.chatsRef.scrollHeight;
+            }
+
+            focusInput() {
+                this.inputRef.focus();
+            }
+
+            handleSubmitMessage(e) {
+                e.preventDefault();
+                const message = this.inputRef.value.trim();
+                this.onSendMessage(message);
+                this.setState({ inputValue: "" });
+            }
+
+            handleButtonClick(message, payload) {
+                if (this.onButtonClick) {
+                    this.onButtonClick(message, payload);
+                }
+                this.focusInput();
+            }
+
+            groupMessages(messages) {
+                // Implement grouping logic here
+            }
+
+            handleInputChange(inputValue, scrollToEnd = false) {
+                this.inputValue = inputValue;
+                if (scrollToEnd) {
+                    this.inputRef.focus();
+                    this.inputRef.scrollLeft = this.inputRef.scrollWidth;
+                }
+            }
+
+            render() {
+                const messageGroups = this.groupMessages(this.messages);
+                const isClickable = i =>
+                    !this.waitingForBotResponse && i == messageGroups.length - 1;
+
+                const chatroomElement = document.createElement("div");
+                chatroomElement.className = this.isOpen ? "chatroom open" : "chatroom closed";
+                chatroomElement.innerHTML = `
+                    <h3>${this.title}</h3>
+                    <div class="chats"></div>
+                    <form class="input">
+                        <input type="text" value="${this.inputValue}">
+                        <input type="submit" value="Submit">
+                        ${
+                            this.speechRecognition != null
+                                ? `<button id="speech-input">Speech</button>`
+                                : ""
+                        }
+                    </form>
+                `;
+
+                const chatsDiv = chatroomElement.querySelector(".chats");
+                messageGroups.forEach((group, i) => {
+                    const messageGroupElement = document.createElement("div");
+                    group.forEach(message => {
+                        // Create message element and append to messageGroupElement
+                    });
+                    chatsDiv.appendChild(messageGroupElement);
+                });
+
+                this.chatsRef = chatsDiv;
+                this.inputRef = chatroomElement.querySelector(".input input[type='text']");
+                chatroomElement.querySelector("form").addEventListener("submit", this.handleSubmitMessage.bind(this));
+
+                if (this.speechRecognition != null) {
+                    const speechInputButton = chatroomElement.querySelector("#speech-input");
+                    speechInputButton.addEventListener("click", () => {
+                        // Implement speech recognition logic here
+                    });
+                }
+
+                return chatroomElement;
+            }
+        }
+
+        // Define props for the Chatroom component
+        const chatroomProps = {
+            messages: [], // Array of messages
+            title: "Chatroom", // Title of the chatroom
+            isOpen: true, // Whether the chatroom is open or closed
+            waitingForBotResponse: false, // Whether the chatroom is waiting for a response from the bot
+            speechRecognition: "en-US", // Language for speech recognition
+            voiceLang: "en-US", // Language for voice synthesis
+            onSendMessage: message => {
+                console.log("Message sent:", message);
+                // Implement logic to send the message
+            },
+            onButtonClick: (message, payload) => {
+                console.log("Button clicked:", message, payload);
+                // Implement logic for button click
+            },
+            onToggleChat: () => {
+                console.log("Toggle chatroom");
+                // Implement logic to toggle chatroom open/close
+            }
+        };
+
+        // Usage
+        const chatroom = new Chatroom(chatroomProps);
+        document.body.appendChild(chatroom.render());
+    </script>
+    <script type="text/javascript">
+        window.chatroom = new window.Chatroom({
+          title: "Chat with a bot",
+          container: document.querySelector(".chat-container"),
+          welcomeMessage: "Nice to meet you.",
+          host: "http://localhost:5005",
+          speechRecognition: "en-US",
+          voiceLang: "en-US"
+        });
+        window.chatroom.openChat();
+        </script>
+</body>
+</html>
