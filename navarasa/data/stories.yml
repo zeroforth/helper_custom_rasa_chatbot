@@ -1,0 +1,14 @@
+- story: Greet, Get Book Number, Get Chapter Number, Get Verse Number, and Get Bible Verse
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: utter_ask_BookNumber
+  - intent: provide_book_number
+  - action: action_store_book_number
+  - action: utter_ask_Chapter
+  - intent: provide_chapter_number
+  - action: action_store_chapter_number
+  - action: utter_ask_Verse
+  - intent: provide_verse_number
+  - action: action_store_verse_number
+  - action: action_get_bible_verse

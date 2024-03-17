@@ -1,0 +1,25 @@
+rules:
+- rule: Ask for Book Number after Greeting
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: utter_ask_BookNumber
+
+- rule: Store Book Number and Ask for Chapter Number
+  steps:
+  - intent: provide_book_number
+  - action: action_store_book_number
+  - action: utter_ask_Chapter
+
+- rule: Store Chapter Number and Ask for Verse Number
+  steps:
+  - intent: provide_chapter_number
+  - action: action_store_chapter_number
+  - action: utter_ask_Verse
+
+- rule: Store Verse Number and Get Bible Verse
+  steps:
+  - intent: provide_verse_number
+  - action: action_store_verse_number
+  - action: action_get_bible_verse
+  - active_loop: null

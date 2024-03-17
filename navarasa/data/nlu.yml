@@ -1,0 +1,87 @@
+
+nlu:
+  - intent: greet
+    examples: |
+      - Hi
+      - Hello
+      - Hey there
+      - Hi there
+      - Good morning
+      - Good afternoon
+      - Howdy
+      - Greetings
+  - intent: affirm
+    examples: |
+      - Yes
+      - Yeah
+      - Yup
+      - Absolutely
+      - Sure
+      - Of course
+      - Definitely
+  - intent: deny
+    examples: |
+      - No
+      - Nah
+      - Nope
+      - I don't think so
+      - I disagree
+      - Not really
+  - intent: get_verse
+    examples: |
+      - Can you get a Bible verse for me?
+      - I want a Bible verse
+      - Get me a verse
+      - Give me a Bible verse
+      - Bible verse please
+      - Can I have a verse?
+
+  - intent: goodbye
+    examples: |
+      - Goodbye
+      - Bye
+      - Farewell
+      - See you later
+      - Take care
+      - Bye bye
+  - intent: mood_great
+    examples: |
+      - I'm feeling great
+      - I'm happy
+      - I'm in a good mood
+      - Feeling awesome
+      - I feel fantastic
+  - intent: mood_unhappy
+    examples: |
+      - I'm feeling sad
+      - I'm not happy
+      - I'm feeling down
+      - Feeling terrible
+      - I'm upset
+  - intent: provide_book_number
+    examples: |
+      - The book number is [1](BookNumber)
+      - Book number is [66](BookNumber)
+      - It's book [5](BookNumber)
+      - Book number: [12](BookNumber)
+      - I'm referring to book [3](BookNumber)
+
+  - intent: provide_chapter_number
+    examples: |
+      - The chapter number is [1](Chapter)
+      - Chapter number is [12](Chapter)
+      - It's chapter [5](Chapter)
+      - Chapter number: [27](Chapter)
+      - I'm talking about chapter [3](Chapter)
+
+  - intent: provide_verse_number
+    examples: |
+      - The verse number is [1](Verse)
+      - Verse number is [12](Verse)
+      - It's verse [5](Verse)
+      - Verse number: [27](Verse)
+      - The verse is [1](Verse)
+      - Verse: [1](Verse)
+      - It's verse [1](Verse)
+      - Verse is [1](Verse)
+      - I'm referring to verse [5](Verse)
